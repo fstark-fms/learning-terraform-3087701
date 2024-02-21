@@ -25,7 +25,7 @@ module "blog_vpc" {
 
   tags = {
     Terraform = "true"
-    Environment = "development"
+    Environment = "FS_TF_development"
   }
 }
 
