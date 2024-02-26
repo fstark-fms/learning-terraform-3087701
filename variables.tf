@@ -26,7 +26,7 @@ variable "environment" {
   })
 
   default = {
-    name           = "fs_development"
+    name           = "Development"
     network_prefix = "10.0"
   }
 }
