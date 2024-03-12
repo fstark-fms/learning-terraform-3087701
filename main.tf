@@ -64,7 +64,7 @@ module "blog_alb" {
   source = "terraform-aws-modules/alb/aws"
   version = "~> 6.0"
 
-  name    = "${var.environment.name}-blog-alb"
+  name    = "f-alb"
 
   load_balancer_type = "application"
 
@@ -82,7 +82,7 @@ module "blog_alb" {
 
   target_groups = [
     {
-      name_prefix      = "fs-blog"
+      name_prefix      = "fsblog"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
