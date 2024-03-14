@@ -91,6 +91,6 @@ module "blog_alb" {
 
   tags = {
     Environment = var.environment.name
-    Project     = "Blog_FS"
+    Project     = "Blog_FS_mod"
   }
 }
