@@ -23,11 +23,13 @@ variable "environment" {
   type = object ({
     name           = string
     network_prefix = string
+    cert_subdomain = string
   })
 
   default = {
     name           = "Development"
     network_prefix = "10.0"
+    cert_subdomain = "blog-dev"
   }
 }
 
