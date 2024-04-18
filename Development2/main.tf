@@ -4,7 +4,7 @@ module "Development2" {
     environment = {
         name = "Development2"
         network_prefix = "10.5"
-        cert_domain = "blog-dev2.fmsvisitor.com"
+        cert_subdomain = "blog-dev2"
     }
 
     asg_min_size = 1

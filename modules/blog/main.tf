@@ -64,7 +64,7 @@ module "blog_acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.0"
 
-  domain_name  = "${var.environment.cert_domain}"
+  domain_name  = "${var.environment.cert_subdomain}.fmsvisitor.com"
 
   wait_for_validation = false
 }
@@ -96,7 +96,7 @@ module "blog_alb" {
     ex-https = {
       port            = 443
       protocol        = "HTTPS"
-      certificate_arn = blog_acm.certificate_arn
+      certificate_arn = blog_acm.acm_certificate_arn
 
       forward = {
         target_group_key = "ex-instance"
