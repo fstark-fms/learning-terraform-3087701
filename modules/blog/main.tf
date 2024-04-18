@@ -64,7 +64,7 @@ module "blog_acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.0"
 
-  domain_name  = ${var.environment.cert_domain}
+  domain_name  = "${var.environment.cert_domain}"
 
   wait_for_validation = false
 }
