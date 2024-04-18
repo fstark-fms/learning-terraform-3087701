@@ -1,11 +1,7 @@
 output "environment_alb_url" {
-    value = module.blog_alb.lb_dns_name
+    value = module.blog_alb.dns_name
 }
 
 output "environment_url" {
-    value = module.blog_alb.environment_url
-}
-
-output "url" {
-    value = module.blog_alb.url
+    value = module.blog_acm.domain_name
 }
