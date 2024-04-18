@@ -96,7 +96,7 @@ module "blog_alb" {
     ex-https = {
       port            = 443
       protocol        = "HTTPS"
-      certificate_arn = blog_acm.acm_certificate_arn
+      certificate_arn = module.blog_acm.acm_certificate_arn
 
       forward = {
         target_group_key = "ex-instance"
