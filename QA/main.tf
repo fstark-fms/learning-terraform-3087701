@@ -4,6 +4,7 @@ module "QA" {
     environment = {
         name = "QA"
         network_prefix = "10.1"
+        cert_subdomain = "blog-qa"
     }
 
     asg_min_size = 1
