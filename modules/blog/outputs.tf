@@ -3,5 +3,5 @@ output "environment_alb_url" {
 }
 
 output "environment_url" {
-    value = module.blog_acm.domain_name
+    value = module.blog_acm.distinct_domain_names
 }
