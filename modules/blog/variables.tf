@@ -38,7 +38,7 @@ variable "asg_min_size" {
 
 variable "asg_max_size" {
   description = "max_size"
-  default     = 1
+  default     = 2
 }
 
 
