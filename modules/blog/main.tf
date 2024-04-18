@@ -90,7 +90,7 @@ module "blog_alb" {
   ]
 
   tags = {
-    Environment = var.environment.name
+    Environment = var.environment.name == "Development2" ? "Development" : var.environment.name
     Project     = "Blog_FS_mod"
   }
 }
