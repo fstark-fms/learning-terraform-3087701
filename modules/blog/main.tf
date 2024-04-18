@@ -25,7 +25,7 @@ module "blog_vpc" {
 
   tags = {
     Terraform = "true"
-    Environment = var.environment.name
+    Environment = var.environment.name == "Development2" ? "Development" : var.environment.name
   }
 }
 
