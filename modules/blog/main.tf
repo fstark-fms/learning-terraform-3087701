@@ -40,7 +40,7 @@ module "blog_sg" {
   ingress_cidr_blocks = ["0.0.0.0/0"]
 
   egress_rules = ["all-all"]
-  egress_cidr_blocks = ["0.0.0.0/0"]
+  egress_cidr_blocks = ["10.0.0.0/24"]
 }
 
 module "autoscaling" {
@@ -60,34 +60,58 @@ module "autoscaling" {
 
 }
 
+module "blog_acm" {
+  source  = "terraform-aws-modules/acm/aws"
+  version = "~> 4.0"
+
+  domain_name  = ${var.environment.cert_domain}
+
+  wait_for_validation = false
+}
+
+
 module "blog_alb" {
   source = "terraform-aws-modules/alb/aws"
-  version = "~> 6.0"
+  version = "~> 9.0"
 
   name    = "${var.environment.name}-fsblog"
 
   load_balancer_type = "application"
-
+ 
   vpc_id  = module.blog_vpc.vpc_id
   subnets = module.blog_vpc.public_subnets
   security_groups = [module.blog_sg.security_group_id]
 
-  http_tcp_listeners = [
-    {
-        port     = 80
-        protocol = "HTTP"
-        target_group_index = 0
-    }
-  ]
 
-  target_groups = [
-    {
+  listeners = {
+    ex-http-https-redirect = {
+      port     = 80
+      protocol = "HTTP"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
+    }
+    ex-https = {
+      port            = 443
+      protocol        = "HTTPS"
+      certificate_arn = blog_acm.certificate_arn
+
+      forward = {
+        target_group_key = "ex-instance"
+      }
+    }
+  }
+
+  target_groups = {
+    ex-instance = {
       name_prefix      = "fsblog"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
     }
-  ]
+  }
 
   tags = {
     Environment = var.environment.name == "Development2" ? "Development" : var.environment.name
