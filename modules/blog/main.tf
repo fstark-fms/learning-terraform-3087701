@@ -125,6 +125,7 @@ module "blog_alb" {
 resource "aws_lb_target_group_attachment" "blog_target_group" {
   for_each = {for k,v in module.blog_alb.target_groups: k => v}
 
+  target_group_arn = each.value.arn
   target_id        = each.value.id
   port             = 80
 }
