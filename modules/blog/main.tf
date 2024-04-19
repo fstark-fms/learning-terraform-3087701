@@ -49,11 +49,11 @@ module "blog_acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.0"
 
-  zone_id = "Z085149531H1JL1NR55JT"
+  zone_id = "Z05530962ORLJ19VPIYSO"
 
-  domain_name  = "${var.environment.cert_subdomain}.fmsvisitor.com"
+  domain_name  = "${var.environment.cert_subdomain}.devqafms.com"
 
-  wait_for_validation = false
+  wait_for_validation = true
 }
 
 
