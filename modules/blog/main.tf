@@ -52,7 +52,7 @@ module "autoscaling" {
   max_size = var.asg_max_size
 
   vpc_zone_identifier = module.blog_vpc.public_subnets
-  target_group_arns   = [module.blog_alb.target_groups["ex-instance"].arn]
+  target_group_arns   = module.blog_alb.target_groups["ex-instance"].arn
 
   security_groups     = [module.blog_sg.security_group_id]
   
@@ -112,6 +112,7 @@ module "blog_alb" {
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
+      create_attachment = false
     }
   }
 
@@ -120,3 +121,11 @@ module "blog_alb" {
     Project     = "Blog_FS_mod"
   }
 }
+
+resource "aws_lb_target_group_attachment" "blog_target_group" {
+  for_each = {for k,v in module.blog_alb.target_groups: k => v}
+
+  target_id        = each.value.id
+  port             = 80
+}
+
