@@ -65,7 +65,7 @@ module "blog_acm" {
   version = "~> 4.0"
 
   domain_name  = "${var.environment.cert_subdomain}.arch-dev.devqafms.com"
-  zone_id = "Z05530962ORLJ19VPIYSO"
+  zone_id = "${var.environment.zone_id}"
 
   validation_method = "DNS"
   wait_for_validation = true
@@ -131,8 +131,8 @@ resource "aws_lb_target_group_attachment" "blog_target_group" {
 }
 
 resource "aws_route53_record" "blog-route" {
-  zone_id = module.blog_acm.zone_id
-  name = module.blog_acm.domain_name
+  zone_id = "${var.environment.zone_id}"
+  name = "${var.environment.cert_subdomain}.arch-dev.devqafms.com"
   type = "CNAME"
   ttl  = 300
   records = [module.blog_alb.dns_name]

@@ -24,12 +24,14 @@ variable "environment" {
     name           = string
     network_prefix = string
     cert_subdomain = string
+    zone_id = string
   })
 
   default = {
     name           = "Development"
     network_prefix = "10.0"
     cert_subdomain = "blog-dev"
+    zone_id = "Z05530962ORLJ19VPIYSO"
   }
 }
 
