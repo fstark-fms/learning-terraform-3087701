@@ -130,7 +130,7 @@ resource "aws_lb_target_group_attachment" "blog_target_group" {
   port             = 80
 }
 
-resource "aws_route_53_record" "blog-route" {
+resource "aws_route53_record" "blog-route" {
   zone_id = module.blog_acm.zone_id
   name = module.blog_acm.domain_name
   type = "CNAME"
