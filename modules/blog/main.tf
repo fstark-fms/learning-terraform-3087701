@@ -64,10 +64,10 @@ module "blog_acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.0"
 
+  domain_name  = "${var.environment.cert_subdomain}.arch-dev.devqafms.com"
   zone_id = "Z05530962ORLJ19VPIYSO"
 
-  domain_name  = "${var.environment.cert_subdomain}.arch-dev.devqafms.com"
-
+  validation_method = "DNS"
   wait_for_validation = true
 }
 
@@ -128,5 +128,13 @@ resource "aws_lb_target_group_attachment" "blog_target_group" {
   target_group_arn = each.value.arn
   target_id        = each.value.id
   port             = 80
+}
+
+resource "aws_route_53_record" "blog-route" {
+  zone_id = module.blog_acm.zone_id
+  name = module.blog_acm.domain_name
+  type = "CNAME"
+  ttl  = 300
+  records = [module.blog_alb.dns_name]
 }
 
