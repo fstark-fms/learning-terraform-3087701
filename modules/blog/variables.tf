@@ -24,7 +24,7 @@ variable "environment" {
     name           = string
     network_prefix = string
     cert_subdomain = string
-    zone_id = string
+    zone_id        = string
   })
 
   default = {
