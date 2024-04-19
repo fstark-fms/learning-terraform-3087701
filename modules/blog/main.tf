@@ -66,7 +66,7 @@ module "blog_acm" {
 
   zone_id = "Z05530962ORLJ19VPIYSO"
 
-  domain_name  = "${var.environment.cert_subdomain}.devqafms.com"
+  domain_name  = "${var.environment.cert_subdomain}.arch-dev.devqafms.com"
 
   wait_for_validation = true
 }
